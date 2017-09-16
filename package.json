@@ -1,0 +1,27 @@
+{
+  "name": "ws-format-httprequest",
+  "version": "1.0.0",
+  "description": "Format http request and static-type response in generic.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "rxjs": "^5.1.0",
+    "typescript": "^2.3.4",
+    "ws-async-base": "^1.0.1",
+    "zone.js": "^0.8.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ws-types/ws-format-httprequest.git"
+  },
+  "author": "wallace sun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ws-types/ws-format-httprequest/issues"
+  },
+  "homepage": "https://github.com/ws-types/ws-format-httprequest#readme"
+}
