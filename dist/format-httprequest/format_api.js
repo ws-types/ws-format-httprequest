@@ -62,33 +62,31 @@ var FormatHttpAsyncClient = (function (_super) {
             if (type === void 0) { type = contract_1.HttpType.GET; }
             return __awaiter(_this, void 0, void 0, function () {
                 var _this = this;
-                var action, result, error_1, response;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var action, _a, error_1;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             action = type === contract_1.HttpType.GET ? function () { return _this.http.get(url, options); } :
                                 type === contract_1.HttpType.POST ? function () { return _this.http.post(url, args, options); } :
                                     type === contract_1.HttpType.PUT ? function () { return _this.http.put(url, args, options); } :
                                         type === contract_1.HttpType.DELETE ? function () { return _this.http.delete(url, options); } :
                                             function () { return _this.http.options(url, options); };
-                            _a.label = 1;
+                            _b.label = 1;
                         case 1:
-                            _a.trys.push([1, 3, , 4]);
+                            _b.trys.push([1, 3, , 4]);
+                            _a = [true, null];
                             return [4 /*yield*/, action().map(function (i) { return i.json(); }).toPromise()];
-                        case 2:
-                            result = _a.sent();
-                            return [2 /*return*/, [true, null, result]];
+                        case 2: return [2 /*return*/, _a.concat([_b.sent()])];
                         case 3:
-                            error_1 = _a.sent();
+                            error_1 = _b.sent();
                             if (!(error_1 instanceof http_1.Response)) {
-                                return [2 /*return*/, [true, { errors: error_1, url: url, options: options, type: type, args: args }, null]];
+                                return [2 /*return*/, [false, { errors: error_1, url: url, options: options, type: type, args: args }, null]];
                             }
                             try {
-                                response = error_1.json();
-                                return [2 /*return*/, [true, null, response]];
+                                return [2 /*return*/, [true, null, error_1.json()]];
                             }
                             catch (erro2) {
-                                return [2 /*return*/, [true, { errors: error_1, url: url, options: options, type: type, args: args }, null]];
+                                return [2 /*return*/, [false, { errors: erro2, url: url, options: options, type: type, args: args }, null]];
                             }
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];

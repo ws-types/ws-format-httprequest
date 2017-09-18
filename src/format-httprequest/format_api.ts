@@ -19,16 +19,12 @@ export class FormatHttpAsyncClient<T> extends AsyncableClassBase {
                         type === HttpType.DELETE ? () => this.http.delete(url, options) :
                             () => this.http.options(url, options);
         try {
-            const result = await action().map(i => i.json() as T).toPromise();
-            return [true, null, result];
+            return [true, null, await action().map(i => i.json() as T).toPromise()];
         } catch (error) {
-            if (!(error instanceof Response)) {
-                return [true, { errors: error, url: url, options: options, type: type, args: args }, null];
-            }
+            if (!(error instanceof Response)) { return [false, { errors: error, url: url, options: options, type: type, args: args }, null]; }
             try {
-                const response = error.json() as T;
-                return [true, null, response];
-            } catch (erro2) { return [true, { errors: error, url: url, options: options, type: type, args: args }, null]; }
+                return [true, null, error.json() as T];
+            } catch (erro2) { return [false, { errors: erro2, url: url, options: options, type: type, args: args }, null]; }
         }
     }
 
