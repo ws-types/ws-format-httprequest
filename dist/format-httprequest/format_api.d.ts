@@ -9,5 +9,5 @@ import 'rxjs/add/operator/toPromise';
 export declare class FormatHttpAsyncClient<T> extends AsyncableClassBase {
     protected http: Http;
     constructor(http: Http);
-    protected InvokeAsync: (url: string, options?: RequestOptions, type?: HttpType, args?: any) => Promise<[boolean, IError, T]>;
+    protected InvokeAsync(url: string, options?: RequestOptions, type?: HttpType, args?: any): Promise<[boolean, IError, T]>;
 }

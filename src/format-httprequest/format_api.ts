@@ -11,7 +11,7 @@ export class FormatHttpAsyncClient<T> extends AsyncableClassBase {
 
     constructor(protected http: Http) { super(); }
 
-    protected InvokeAsync = async (url: string, options?: RequestOptions, type: HttpType = HttpType.GET, args?: any): Promise<[boolean, IError, T]> => {
+    protected async InvokeAsync(url: string, options?: RequestOptions, type: HttpType = HttpType.GET, args?: any): Promise<[boolean, IError, T]> {
         const action =
             type === HttpType.GET ? () => this.http.get(url, options) :
                 type === HttpType.POST ? () => this.http.post(url, args, options) :

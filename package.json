@@ -1,6 +1,6 @@
 {
   "name": "ws-format-httprequest",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Format http request and static-type response in generic.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
