@@ -23,7 +23,12 @@ export class FormatHttpAsyncClient<T> extends AsyncableClassBase {
         } catch (error) {
             if (!(error instanceof Response)) { return [false, { errors: error, url: url, options: options, type: type, args: args }, null]; }
             try {
-                return [true, null, error.json() as T];
+                const resp = error.json();
+                if (resp instanceof ProgressEvent) {
+                    return [false, { errors: resp, url: url, options: options, type: type, args: args }, null];
+                } else {
+                    return [true, null, resp as T];
+                }
             } catch (erro2) { return [false, { errors: erro2, url: url, options: options, type: type, args: args }, null]; }
         }
     }

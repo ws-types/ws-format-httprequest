@@ -64,7 +64,7 @@ var FormatHttpAsyncClient = (function (_super) {
         if (type === void 0) { type = contract_1.HttpType.GET; }
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var action, _a, error_1;
+            var action, _a, error_1, resp;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -85,7 +85,13 @@ var FormatHttpAsyncClient = (function (_super) {
                             return [2 /*return*/, [false, { errors: error_1, url: url, options: options, type: type, args: args }, null]];
                         }
                         try {
-                            return [2 /*return*/, [true, null, error_1.json()]];
+                            resp = error_1.json();
+                            if (resp instanceof ProgressEvent) {
+                                return [2 /*return*/, [false, { errors: resp, url: url, options: options, type: type, args: args }, null]];
+                            }
+                            else {
+                                return [2 /*return*/, [true, null, resp]];
+                            }
                         }
                         catch (erro2) {
                             return [2 /*return*/, [false, { errors: erro2, url: url, options: options, type: type, args: args }, null]];
