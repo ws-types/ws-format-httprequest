@@ -1,4 +1,5 @@
 # Format http request and static-type response in generic.
+[![Build Status](https://travis-ci.org/ws-types/ws-format-httprequest.svg?branch=master)](https://travis-ci.org/ws-types/ws-format-httprequest)
 
 install this package:
 ```npm
