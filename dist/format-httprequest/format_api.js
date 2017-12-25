@@ -62,37 +62,40 @@ var FormatHttpAsyncClient = (function (_super) {
         if (type === void 0) { type = contract_1.HttpType.GET; }
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var options, action, _a, error_1, resp;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var options, action, result, errorResp_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        options = opts || {};
-                        options.observe = 'body';
+                        options = (opts || {});
+                        options.observe = 'response';
                         options.responseType = 'json';
                         if (args) {
                             options.params = args;
                         }
+                        this.http.get(url, options);
                         action = type === contract_1.HttpType.GET ? function () { return _this.http.get(url, options); } :
-                            type === contract_1.HttpType.POST ? function () { return _this.http.post(url, options); } :
-                                type === contract_1.HttpType.PUT ? function () { return _this.http.put(url, options); } :
+                            type === contract_1.HttpType.POST ? function () { return _this.http.post(url, args, options); } :
+                                type === contract_1.HttpType.PUT ? function () { return _this.http.put(url, args, options); } :
                                     type === contract_1.HttpType.DELETE ? function () { return _this.http.delete(url, options); } :
                                         function () { return _this.http.options(url, options); };
-                        _b.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _b.trys.push([1, 3, , 4]);
-                        _a = [true, null];
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, action().toPromise()];
-                    case 2: return [2 /*return*/, _a.concat([_b.sent()])];
+                    case 2:
+                        result = _a.sent();
+                        return [2 /*return*/, result.status === 200 ?
+                                [true, null, result.body] :
+                                [false, { errors: result, url: url, options: options, type: type, args: args }, null]];
                     case 3:
-                        error_1 = _b.sent();
-                        // if (!(error instanceof Response)) { return [false, { errors: error, url: url, options: options, type: type, args: args }, null]; }
+                        errorResp_1 = _a.sent();
                         try {
-                            resp = error_1;
-                            if (resp instanceof ProgressEvent) {
-                                return [2 /*return*/, [false, { errors: resp, url: url, options: options, type: type, args: args }, null]];
+                            error = errorResp_1.error;
+                            if (error instanceof ProgressEvent) {
+                                return [2 /*return*/, [false, { errors: error, url: url, options: options, type: type, args: args }, null]];
                             }
                             else {
-                                return [2 /*return*/, [true, null, resp]];
+                                return [2 /*return*/, [true, null, errorResp_1]];
                             }
                         }
                         catch (erro2) {
