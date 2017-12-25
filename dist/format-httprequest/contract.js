@@ -8,3 +8,4 @@ var HttpType;
     HttpType[HttpType["DELETE"] = 3] = "DELETE";
     HttpType[HttpType["OPTIONS"] = 4] = "OPTIONS";
 })(HttpType = exports.HttpType || (exports.HttpType = {}));
+//# sourceMappingURL=contract.js.map

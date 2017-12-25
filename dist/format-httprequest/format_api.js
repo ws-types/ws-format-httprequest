@@ -45,10 +45,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var http_1 = require("@angular/http");
 var ws_async_base_1 = require("ws-async-base");
 var contract_1 = require("./contract");
-require("rxjs/add/operator/map");
 require("rxjs/add/operator/toPromise");
 /**
  * 支持异步等待延时的API服务基类，封装了通用请求方法和静态类型化的返回结果
@@ -60,32 +58,36 @@ var FormatHttpAsyncClient = (function (_super) {
         _this.http = http;
         return _this;
     }
-    FormatHttpAsyncClient.prototype.InvokeAsync = function (url, options, type, args) {
+    FormatHttpAsyncClient.prototype.InvokeAsync = function (url, opts, type, args) {
         if (type === void 0) { type = contract_1.HttpType.GET; }
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var action, _a, error_1, resp;
+            var options, action, _a, error_1, resp;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        options = opts || {};
+                        options.observe = 'body';
+                        options.responseType = 'json';
+                        if (args) {
+                            options.params = args;
+                        }
                         action = type === contract_1.HttpType.GET ? function () { return _this.http.get(url, options); } :
-                            type === contract_1.HttpType.POST ? function () { return _this.http.post(url, args, options); } :
-                                type === contract_1.HttpType.PUT ? function () { return _this.http.put(url, args, options); } :
+                            type === contract_1.HttpType.POST ? function () { return _this.http.post(url, options); } :
+                                type === contract_1.HttpType.PUT ? function () { return _this.http.put(url, options); } :
                                     type === contract_1.HttpType.DELETE ? function () { return _this.http.delete(url, options); } :
                                         function () { return _this.http.options(url, options); };
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
                         _a = [true, null];
-                        return [4 /*yield*/, action().map(function (i) { return i.json(); }).toPromise()];
+                        return [4 /*yield*/, action().toPromise()];
                     case 2: return [2 /*return*/, _a.concat([_b.sent()])];
                     case 3:
                         error_1 = _b.sent();
-                        if (!(error_1 instanceof http_1.Response)) {
-                            return [2 /*return*/, [false, { errors: error_1, url: url, options: options, type: type, args: args }, null]];
-                        }
+                        // if (!(error instanceof Response)) { return [false, { errors: error, url: url, options: options, type: type, args: args }, null]; }
                         try {
-                            resp = error_1.json();
+                            resp = error_1;
                             if (resp instanceof ProgressEvent) {
                                 return [2 /*return*/, [false, { errors: resp, url: url, options: options, type: type, args: args }, null]];
                             }
@@ -105,3 +107,4 @@ var FormatHttpAsyncClient = (function (_super) {
     return FormatHttpAsyncClient;
 }(ws_async_base_1.AsyncableClassBase));
 exports.FormatHttpAsyncClient = FormatHttpAsyncClient;
+//# sourceMappingURL=format_api.js.map
