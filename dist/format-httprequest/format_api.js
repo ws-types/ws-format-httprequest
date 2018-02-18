@@ -51,7 +51,7 @@ require("rxjs/add/operator/toPromise");
 /**
  * 支持异步等待延时的API服务基类，封装了通用请求方法和静态类型化的返回结果
  */
-var FormatHttpAsyncClient = (function (_super) {
+var FormatHttpAsyncClient = /** @class */ (function (_super) {
     __extends(FormatHttpAsyncClient, _super);
     function FormatHttpAsyncClient(http) {
         var _this = _super.call(this) || this;
@@ -69,9 +69,6 @@ var FormatHttpAsyncClient = (function (_super) {
                         options = (opts || {});
                         options.observe = 'response';
                         options.responseType = 'json';
-                        if (args) {
-                            options.params = args;
-                        }
                         this.http.get(url, options);
                         action = type === contract_1.HttpType.GET ? function () { return _this.http.get(url, options); } :
                             type === contract_1.HttpType.POST ? function () { return _this.http.post(url, args, options); } :

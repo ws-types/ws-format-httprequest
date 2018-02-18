@@ -21,9 +21,6 @@ export class FormatHttpAsyncClient<T> extends AsyncableClassBase {
         const options: IJsonBodyRequestOptions = (opts || {} as any);
         options.observe = 'response';
         options.responseType = 'json';
-        if (args) {
-            options.params = args;
-        }
         this.http.get<T>(url, options);
         const action: () => Observable<HttpResponse<T>> =
             type === HttpType.GET ? () => this.http.get<T>(url, options) :

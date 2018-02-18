@@ -1,6 +1,6 @@
 {
   "name": "ws-format-httprequest",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Format http request and static-type response in generic. Version 2.0.0 now supports angular5.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
